@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div style="border: 2px solid black">
+        <h1>Veio de home.html</h1>
+        <p>Aqui se encontra o html que veio de home.html </p>
+        {# O include serve para que possamos utilizar fragmentos de códigos. Uma boa prática para não ficar repetindo o mesmo código várias vezes #}
+        {% include 'personal/snippets/snippet_test.html' %}
+
+    </div>
+
+{% endblock content %}
+
+
