@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #My Apps
     'personal',
+    'account',
 
     #Django Apps
     'django.contrib.admin',
@@ -72,6 +73,11 @@ TEMPLATES = [
         },
     },
 ]
+
+#Estou dando um override nas funções de criação e gereciamento de usuários
+#o django já possui um padrão e estou sobrescrevendo isso para ter os atributos
+#e ações decididas por mim.
+AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'BlogInDjango.wsgi.application'
 
