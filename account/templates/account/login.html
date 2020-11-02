@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {#Altera visibilidade dos campos de senha    #}
+    <script type="text/javascript">
+        function showPassword() {
+            if (document.getElementById('box').checked) {
+                document.getElementById("inputPassword").type = 'text';
+
+            } else {
+                document.getElementById("inputPassword").type = 'password';
+            }
+
+        }
+    </script>
+
+
+    <style type="text/css">
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="text"] {
+            margin-bottom: 0px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+
+    </style>
+
+    <div class="text-center">
+        <form class="form-signin" method="post">
+            {% csrf_token %}
+            <img class="mb-4"
+                    {# Peguei imagem na internet#}
+                 src="https://images.squarespace-cdn.com/content/v1/5d6dae3b8a813e000105641f/1569532114994-QV7ZPKT8BEDHV54RQE76/ke17ZwdGBToddI8pDm48kMsD1GqCSw_Lt__NBWGY9LJ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmnLO508AeBLH6HaCVKVsRGNtMODsyU0eqtc16PCSKMOSOu0C9gVnvtIvcZiaLq25M/Admin+Support.png"
+                 alt="" width="120" height="120">
+            <h1 class="h3 mb-3 font-weight-normal">Entrar</h1>
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username"
+                   required autofocus>
+            <label for="inputPassword" class="sr-only">Senha</label>
+            <input type="password" name='password' id="inputPassword" class="form-control" placeholder="Senha"
+                   required>
+            <div align="right">
+                <span>Exibir Senhas</span>
+                <input type="checkbox" id="box" onclick="showPassword()">
+            </div>
+
+
+
+            {% for field in login_form %}
+                <p>
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </p>
+            {% endfor %}
+
+
+
+
+            {% if login_form.non_field_errors %}
+                <div style="color: red">
+                    <div class="alert alert-danger" role="alert">
+                        {{ login_form.non_field_errors }}
+                    </div>
+                </div>
+
+            {% endif %}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+            <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+
+
+            <p class="mt-5 mb-3 text-muted">&copy BlogInTheDjango |
+                <script>document.write(new Date().getFullYear());</script>
+            </p>
+        </form>
+    </div>
+{% endblock %}

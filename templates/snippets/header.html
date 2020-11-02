@@ -1,0 +1,62 @@
+<style type="text/css">
+    @media (min-width: 768px) {
+        html {
+            font-size: 16px;
+        }
+    }
+
+    .container {
+        max-width: 960px;
+    }
+
+    .message-header {
+        max-width: 700px;
+    }
+
+    .card-deck .card {
+        min-width: 220px;
+    }
+
+
+</style>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h1 class="my-0 mr-md-auto font-weight-normal "><a class="text-dark" style="text-decoration: none"
+                                                       href="{% url 'home' %}">BlogInTheDjango</a></h1>
+    <nav class="my-2 my-md-0 mr-md-3">
+        {% if request.user.is_authenticated %}
+            <p>
+                <strong>Olá, {{ request.user.first_name }}</strong>
+                {% url 'home' as home_url %}
+                {% if request.get_full_path == home_url %}
+                {% else %}
+                    <a class="p-2 text-dark" href="{% url 'home' %}">Inicio</a>
+
+
+                {% endif %}
+                <a class="p-2 text-dark" href="{% url 'account' %}">Minha Conta</a>
+                <a class="p-2" style="color: red" href="{% url 'logout' %}">Sair</a>
+            </p>
+        {% else %}
+            <p>
+                {% url 'register' as register_url %}
+                {% url 'login' as login_url %}
+                {% if request.get_full_path == register_url %}
+                    <a class="p-2 text-dark" href="{% url 'home' %}">Inicio</a>
+                    <a class="p-2 text-dark" href="{% url 'login' %}">Entre</a>
+                {% elif request.get_full_path == login_url %}
+                    <a class="p-2 text-dark" href="{% url 'home' %}">Inicio</a>
+                    <a class="btn btn-outline-primary" href="{% url 'register' %}">Cadastrar-se</a>
+                {% else %}
+                    <a class="p-2 text-dark" href="{% url 'login' %}">Entre</a>
+                    <a class="btn btn-outline-primary" href="{% url 'register' %}">Cadastrar-se</a>
+                {% endif %}
+
+
+            </p>
+        {% endif %}
+
+
+    </nav>
+
+</div>
+

@@ -1,31 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <div style="border: 2px solid black">
-        <h1>Veio de home.html</h1>
-        <p>Aqui se encontra o html que veio de home.html </p>
-        {# O include serve para que possamos utilizar fragmentos de códigos. Uma boa prática para não ficar repetindo o mesmo código várias vezes #}
-{#        {% include 'personal/snippets/snippet_test.html' %}#}
-{#        <p>{{ blog_name }}</p>#}
-
-    <h2>Contas Cadastradas no Blog</h2>
-    {% for account in accounts %}
-        <p>{{ account.first_name }} | {{ account.email }} | {{ account.date_joined }}</p>
-    {% endfor %}
+    <div class="message-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Welcome to the BlogInTheDjango</h1>
+        <p class="lead">Este Blog foi construido usando a linguagem Python, usando-se da framework Django. Esse Blog
+            contém, toda parte de autenticação, e CRUD das postagens.</p>
     </div>
 
-{#    CÓDIGO SÓ PARA APRENDIZAGEM#}
-{#     <br>#}
-{#    <div style="align-content: center;border: 2px solid darkred">#}
-{#    {% for question in questions %}#}
-{#        {% include 'personal/snippets/snippet_questions.html' with question=question %}#}
-{#    {% endfor %}#}
-{##}
-{#    </div>#}
-
-
-
+    <div class="container">
+        <div class="d-flex flex-column"> <!-- FlexBox -->
+            <h2>Contas Cadastradas no Blog</h2>
+            {% for account in accounts %}
+                <p>{{ account.first_name }} | {{ account.email }} | {{ account.date_joined }}</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
 
 

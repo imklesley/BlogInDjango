@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class MyAccountManager(BaseUserManager):
 
-    #Cria-se um usuário comum
+    # Cria-se um usuário comum
     def create_user(self, email, username, first_name, password=None):
         # Verifica-se se os campos obrigatórios foram preenchidos
         if not email:
@@ -28,9 +28,9 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    #Cria-se um usuário comum e então seta as caracteristicas de super
+    # Cria-se um usuário comum e então seta as caracteristicas de super
     def create_superuser(self, email, username, first_name, password=None):
-        #Cria-se o usuário
+        # Cria-se o usuário
         user = self.create_user(
             email=self.normalize_email(email),
             password=password,
@@ -38,19 +38,18 @@ class MyAccountManager(BaseUserManager):
             first_name=first_name
         )
 
-        #Seta as cartacteristicas de Usuário Administrador
-        user.is_admin =True
-        user.is_staff =True
-        user.is_superuser =True
+        # Seta as cartacteristicas de Usuário Administrador
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
 
-        #Agora salva-se as caracteristicas
+        # Agora salva-se as caracteristicas
         user.save(using=self._db)
         return user
 
 
-
 class Account(AbstractBaseUser):
-    email = models.EmailField(verbose_name='email', max_length=60, unique=True, )
+    email = models.EmailField(verbose_name='email', max_length=60, unique=True, blank=False)
     username = models.CharField(max_length=30, unique=True)
 
     # Os campos a seguir são requerimentos para usar o AbstractBaseUser
@@ -70,11 +69,11 @@ class Account(AbstractBaseUser):
     # É definido qual dos elementos vai ser utilizado para logar-- o login(podia ser o email por exemplo)
     USERNAME_FIELD = 'username'
     # Posso definir campos que são obrigados a serem preenchidos
-    REQUIRED_FIELDS = ['first_name']
+    REQUIRED_FIELDS = ['first_name', 'email']
 
     # override no toString do python
     def __str__(self):
-        return f'O username é {self.username} com email {self.email}'
+        return self.username
 
     # Para criar um Custom User Model é preciso também adicionar alguns métodos que são necessários
 
@@ -84,13 +83,10 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-
     # É preciso dizer ao Criador de contas (Account) aonde está o MyAccountManager, logo criamos um objeto chamado objects
 
     objects = MyAccountManager()
 
-
-
-    #Para finalizar o processo de criação do Custom User Model é preciso ir em settings e adicionar o parâmetro
-    #AUTH_USER_MODEL = 'account.Account', isso após ter importado o modulo aqui criado. Isso vai fazer com que o django
-    #use o nosso model criado para criação e manutenção dos usuários
+    # Para finalizar o processo de criação do Custom User Model é preciso ir em settings e adicionar o parâmetro
+    # AUTH_USER_MODEL = 'account.Account', isso após ter importado o modulo aqui criado. Isso vai fazer com que o django
+    # use o nosso model criado para criação e manutenção dos usuários

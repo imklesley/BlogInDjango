@@ -26,15 +26,25 @@ SECRET_KEY = 't&xvb*7+c22v2(tt8l$u%rolw78)8dt%n@l-ph#u2^uxoq0p1v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#Se estiver num ambiente de desenvolvimento
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #Somente durante o desenvolvimento
+
+
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+
+    #SEMPRE COLOCAR A VIRGULA APÓS REFERENCIAR UM APP,
+    #DEU UM PUTA BUG E NÃO TINHA IDEIA DE ONDE TAVA
+
     #My Apps
     'personal',
     'account',
+    'blog',
 
     #Django Apps
     'django.contrib.admin',
