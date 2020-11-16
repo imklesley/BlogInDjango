@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{#Para alertar o django de carregar os arquivos estáticos de static_cdn#}
+{% load static %}
+
+
+
+
 {% block content %}
 
     {#Altera visibilidade dos campos de senha    #}
@@ -59,9 +65,9 @@
         <form class="form-signin" method="post">
             {% csrf_token %}
             <img class="mb-4"
-                    {# Peguei imagem na internet#}
-                 src="https://images.squarespace-cdn.com/content/v1/5d6dae3b8a813e000105641f/1569532114994-QV7ZPKT8BEDHV54RQE76/ke17ZwdGBToddI8pDm48kMsD1GqCSw_Lt__NBWGY9LJ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmnLO508AeBLH6HaCVKVsRGNtMODsyU0eqtc16PCSKMOSOu0C9gVnvtIvcZiaLq25M/Admin+Support.png"
-                 alt="" width="120" height="120">
+                    {# Imagem na pasta de static#}
+                 src="{% static 'admin_logo.png' %}"
+                 alt="BlogInTheDjango ---ISSO É USADO NO SEARCH DO GOOGLE " width="200" height="200">
             <h1 class="h3 mb-3 font-weight-normal">Entrar</h1>
             <label for="inputUsername" class="sr-only">Username</label>
             <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username"

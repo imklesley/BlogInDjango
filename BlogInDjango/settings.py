@@ -16,37 +16,34 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 't&xvb*7+c22v2(tt8l$u%rolw78)8dt%n@l-ph#u2^uxoq0p1v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#Se estiver num ambiente de desenvolvimento
+# Se estiver num ambiente de desenvolvimento
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #Somente durante o desenvolvimento
-
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Somente durante o desenvolvimento
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
 INSTALLED_APPS = [
 
-    #SEMPRE COLOCAR A VIRGULA APÓS REFERENCIAR UM APP,
-    #DEU UM PUTA BUG E NÃO TINHA IDEIA DE ONDE TAVA
+    # SEMPRE COLOCAR A VIRGULA APÓS REFERENCIAR UM APP,
+    # DEU UM PUTA BUG E NÃO TINHA IDEIA DE ONDE TAVA
 
-    #My Apps
+    # My Apps
     'personal',
     'account',
     'blog',
 
-    #Django Apps
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,13 +81,12 @@ TEMPLATES = [
     },
 ]
 
-#Estou dando um override nas funções de criação e gereciamento de usuários
-#o django já possui um padrão e estou sobrescrevendo isso para ter os atributos
-#e ações decididas por mim.
+# Estou dando um override nas funções de criação e gereciamento de usuários
+# o django já possui um padrão e estou sobrescrevendo isso para ter os atributos
+# e ações decididas por mim.
 AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'BlogInDjango.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -101,7 +97,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -121,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -135,8 +129,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+STATICFILES_DIRS = [
+
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'media')
+
+]
+
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR,'static_cdn')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media_cdn')

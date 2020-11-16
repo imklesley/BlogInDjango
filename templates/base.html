@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,9 +13,13 @@
     <meta charset="UTF-8">
     <title>BlogInTheDjango</title>
 
+    {#    #para colocar logo na tab do browser#}
+    <link rel="icon" href="{% static 'admin_logo.png' %}">
+
 
 </head>
-<body>
+
+<body style="background-color: #f2f2f8">
 <!-- Exibe o cabeçario da nossa aplicação -->
 {% include 'snippets/header.html' %}
 
