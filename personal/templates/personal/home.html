@@ -2,6 +2,40 @@
 {% load static %}
 {% block content %}
 
+    <style type="text/css">
+
+	@media (max-width: 768px) {
+		.right-column{
+			margin-left: 0px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.right-column{
+			margin-left: 20px;
+		}
+	}
+
+	.blog-post-container{
+		background-color: #fff;
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.create-post-bar{
+		background-color: #fff;
+		margin-bottom:20px;
+	}
+
+	.left-column{
+		padding:0px;
+	}
+
+	.right-column{
+		padding:0px;
+	}
+
+</style>
+    <!--Carrousseu com promoções-->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -28,6 +62,7 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    <!--End Carrousseu com promoções-->
 
 
     <div class="message-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -38,11 +73,62 @@
     <hr>
 
     <div class="container">
-        <div class="d-flex flex-column"> <!-- FlexBox -->
-            <h2>Contas Cadastradas no Blog</h2>
-            {% for account in accounts %}
-                <p>{{ account.first_name }} | {{ account.email }} | {{ account.date_joined }}</p>
-            {% endfor %}
+        <div class="row"> <!-- FlexBox -->
+
+
+
+             <!--Right 'create post' bar-->
+
+            <div class="create-post-bar d-lg-none col-lg-7 offset-lg-1">
+                <a href="{% url 'blog:create' %}">Create post</a>
+            </div>
+
+            <!--End Right 'create post' bar-->
+
+
+            <!--Blog feed-->
+            <!--São 12 colunas no bootstrap, pule uma e ocupe 7: cod. abaixo-->
+            <div class="left-column col-lg-7 offset-lg-1">
+                <div class="blog-post-container">
+                  <p>Post</p>
+                </div>
+
+                <div class="blog-post-container">
+                  <p>Post</p>
+                </div>
+
+                <div class="blog-post-container">
+                  <p>Post</p>
+                </div>
+
+                <div class="blog-post-container">
+                  <p>Post</p>
+                </div>
+            </div>
+            <!--End Blog feed-->
+
+
+
+            <!--Right 'create post' column-->
+
+            <div class="col-lg-3 d-lg-flex d-none flex-column">
+                <p>stufff</p>
+                <p>stufff</p>
+                <p>stufff</p>
+                <p>stufff</p>
+                <a href="{% url 'blog:create' %}">Create post</a>
+            </div>
+
+            <!--End Right 'create post' column-->
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 

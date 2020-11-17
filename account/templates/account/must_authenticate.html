@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="d-flex flex-column">
+
+            <p class="m-auto" style="font-size: 25px"> Must authenticate to view this page!!</p>
+            <br>
+            <p class="m-auto">
+                <a href="{% url 'login' %}"> Realizar Login</a>
+                or
+                <a href="{% url 'register' %}"> Realizar Cadastro</a>
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+{% endblock content %}
