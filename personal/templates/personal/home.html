@@ -50,7 +50,10 @@
                 <img class="d-block w-100" src="https://www.casasbahia-imagens.com.br/criacao/01-home/bannertv/2020/11-nov/13/banner-apple-iphone.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-                <a href="{% url 'login' %}"><img class="d-block w-100" src="https://www.casasbahia-imagens.com.br/criacao/01-home/bannertv/2020/11-nov/08/tv02-entrega-rapida.png" alt="Third slide" ></a>
+                <a href="{% url 'login' %}"><img class="d-block w-100" src="https://www.casasbahia-imagens.com.br/criacao/01-home/bannertv/2020/11-nov/08/tv02-entrega-rapida.png" alt="Third slide" height="250"></a>
+            </div>
+            <div class="carousel-item">
+                <a href="{% url 'login' %}"><img class="d-block w-100" src="{% static 'banner_coisa_de_deusa_black.jpg' %}" alt="Third slide" ></a>
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
