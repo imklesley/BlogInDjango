@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-import time
+from blog.models import BlogPost
+
 # Referencia-se o form criado
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 
@@ -117,7 +118,15 @@ def account_view(request):
             'first_name': user.first_name
         })
 
+
+
+
+
     context['account_form'] = form
+
+    blog_posts =BlogPost.objects.filter(author=request.user)
+    context['blog_posts'] = blog_posts
+
 
     return render(request=request, template_name='account/account.html', context=context)
 
