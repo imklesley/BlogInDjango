@@ -29,7 +29,7 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Somente durante o desenvolvimento
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.117']
 
 # Application definition
 

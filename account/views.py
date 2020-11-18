@@ -118,20 +118,13 @@ def account_view(request):
             'first_name': user.first_name
         })
 
-
-
-
-
     context['account_form'] = form
 
-    blog_posts =BlogPost.objects.filter(author=request.user)
+    blog_posts = BlogPost.objects.filter(author=request.user)
     context['blog_posts'] = blog_posts
-
 
     return render(request=request, template_name='account/account.html', context=context)
 
 
 def must_authenticate_view(request):
-    return render(request,'account/must_authenticate.html',{})
-
-
+    return render(request, 'account/must_authenticate.html', {})
