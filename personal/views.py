@@ -7,7 +7,7 @@ from blog.views import get_blog_queryset
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator # os dois primeiros são tipos de erros
 
 
-BLOG_POST_PER_PAGE = 10
+BLOG_POST_PER_PAGE = 5
 def home_screen_view(request):
     # # Estou realizando um select * from TabelaQuestions
     # questions = Question.objects.all()

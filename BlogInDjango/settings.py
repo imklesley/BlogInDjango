@@ -29,7 +29,7 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Somente durante o desenvolvimento
 
-ALLOWED_HOSTS = ['192.168.0.117']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #Other Apps
+    'rest_framework.apps.RestFrameworkConfig'
 ]
 
 MIDDLEWARE = [
