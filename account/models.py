@@ -1,5 +1,11 @@
+# Capítulo de criação de Custom User
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
+# Capítulo de criação de token ao criar usuáiro
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class MyAccountManager(BaseUserManager):
@@ -67,9 +73,9 @@ class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=30)
 
     # É definido qual dos elementos vai ser utilizado para logar-- o login(podia ser o email por exemplo)
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
     # Posso definir campos que são obrigados a serem preenchidos
-    REQUIRED_FIELDS = ['first_name', 'email']
+    REQUIRED_FIELDS = ['first_name', 'username']
 
     # override no toString do python
     def __str__(self):
@@ -90,3 +96,9 @@ class Account(AbstractBaseUser):
     # Para finalizar o processo de criação do Custom User Model é preciso ir em settings e adicionar o parâmetro
     # AUTH_USER_MODEL = 'account.Account', isso após ter importado o modulo aqui criado. Isso vai fazer com que o django
     # use o nosso model criado para criação e manutenção dos usuários
+
+
+@receiver(post_save, sender=Account)
+def create_user_token(sender, instance=None, created=False, *args, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

@@ -11,7 +11,6 @@ from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUp
 
 def registration_view(request):
     context = {}
-
     # se a requisição pela url foi do tipo POST
     if request.POST:
         # Mostro o form criado em from account.forms import RegistrationForm e coloco o retorno em "form"

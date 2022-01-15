@@ -5,16 +5,20 @@ from django.conf import settings
 from django.dispatch import receiver
 
 
+from datetime import datetime
+
+
 def upload_location(instance, filename, *args, **kwargs):
     author_id = instance.author.id
     title = instance.title
     filename = filename
-    file_path = f'blog/{author_id}/{title}-{filename}'
+    timestamp = datetime.now().timestamp()
+    file_path = f'blog/{author_id}/{title}-{timestamp}-{filename}'
     return file_path
 
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    title = models.CharField(max_length=50, null=False, blank=False)
     body = models.CharField(max_length=5000, null=False, blank=False)
     # para usar essa função é preciso já ter instalado a dependência Pillow
     image = models.ImageField(upload_to=upload_location, null=False, blank=False)
@@ -40,7 +44,8 @@ def submission_delete(sender, instance, **kwargs):
 
 def pre_save_blog_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(f'{instance.author.username}-{instance.title}')
+        timestamp = datetime.now().timestamp()
+        instance.slug = slugify(f'{instance.author.username}-{instance.title}-{timestamp}')
 
 
 # A qualquer momento que for preciso salvar um post no db, chame pre_save_blog_post_receiver e

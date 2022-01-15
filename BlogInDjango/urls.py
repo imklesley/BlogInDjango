@@ -20,10 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from personal.views import home_screen_view
-from account.views import registration_view, logout_view, login_view, account_view,must_authenticate_view
-
-#API Views
-from blog.api.views import api_detail_blog_view
+from account.views import registration_view, logout_view, login_view, account_view, must_authenticate_view
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -54,13 +51,10 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-    
-    
-    #REST FRAMEWORK API'S
-    path('api/blog/', include('blog.api.urls'), name= 'blog_api'),
-    # path('api/blog/', include('account.api.urls'), name= 'account_api'),
 
-    
+    # REST FRAMEWORK API'S
+    path('api/blog/', include('blog.api.urls', 'blog_api'), name='blog_api'),
+    path('api/account/', include('account.api.urls', 'account_api'), name='account_api'),
 
 ]
 
