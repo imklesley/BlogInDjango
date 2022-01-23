@@ -61,7 +61,7 @@ def api_login_account_view(request):
                     token = Token.objects.create(user=user)
 
                 # Passa o token e mensagem de sucesso
-                data['token'] = token.key
+                data['data'] = {'token': token.key,'user':AccountSerializer(user).data}
                 data['detail'] = 'User authenticated'
 
                 return Response(data, status.HTTP_200_OK)

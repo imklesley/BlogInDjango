@@ -18,7 +18,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
     # author = serializers.StringRelatedField(source='author.first_name')
 
     # Forma 3 - Usa-se um outro serializer para fazer somente a parte do author e por fim cria o campo aqui e insere em fields
-    author = AccountSerializer()
+    author = AccountSerializer(required=False, allow_null=False)
 
     class Meta:
         model = BlogPost
@@ -26,5 +26,5 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     # Forma 1 de pegar dados por uma relação no caso account e blogpost
     def get_author_username(self, blog_post: BlogPost):
-        username = blog_post.author.username
-        return {'username':username,'name':blog_post.author.first_name}
+        author = blog_post.author
+        return {'username': author.username, 'name': author.first_name, 'email': author.email}

@@ -51,6 +51,4 @@ class LoginAccountSerializer(serializers.Serializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ('email', 'username')
-
-
+        fields = ('email', 'username', 'first_name')

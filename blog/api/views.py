@@ -13,8 +13,6 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 # My Models
-from rest_framework.views import APIView
-
 from blog.models import BlogPost
 
 # serializers
@@ -93,6 +91,7 @@ def api_create_blog_view(request):
     This endpoint will create a blogpost
     """
     if request.method == 'POST':
+        print(request.data)
         author = request.user
 
         data = {}
@@ -100,7 +99,6 @@ def api_create_blog_view(request):
         # Iniciamos o processo de criação do post para podermos inserir o autor da postagem
         post = BlogPost.objects.create(author=author)
 
-        # Adicionamos as outras linhas de código
         serializer = BlogPostSerializer(post, data=request.data)
 
         if serializer.is_valid():
@@ -109,6 +107,7 @@ def api_create_blog_view(request):
             data['data'] = serializer.data
             return Response(data, status=status.HTTP_201_CREATED)
         else:
+            post.delete()
             data['detail'] = 'Post Not Created'
             data['errors'] = serializer.errors
             return Response(data, status=status.HTTP_404_NOT_FOUND)
@@ -116,7 +115,6 @@ def api_create_blog_view(request):
 
 class ApiListView(ListAPIView):
     queryset = BlogPost.objects.all()
-
 
     serializer_class = BlogPostSerializer
 
@@ -139,7 +137,7 @@ def api_list_view(request):
         paginator = PageNumberPagination()
 
         # Caso queira permitir o cliente decidir quantos post serão coletados por página
-        paginator.page_size = request.GET.get('page_size', 3)
+        paginator.page_size = request.GET.get('page_size', 10)
 
         query = request.GET.get('search')
 

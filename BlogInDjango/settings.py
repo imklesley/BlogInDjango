@@ -31,7 +31,8 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Somente durante o desenvolvimento
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.18.241']
 
 # Application definition
 
@@ -78,8 +79,8 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/day',
-        'user': '1000/day',
+        'anon': '10/hour',
+        'user': '100/hour',
 
         'login': '10/day',
         'login_sec': '1/second',
