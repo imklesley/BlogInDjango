@@ -44,7 +44,7 @@ class LoginAccountSerializer(serializers.Serializer):
 
         user = authenticate(email=email, password=password)
         if not user:
-            raise serializers.ValidationError({'detail': 'Email or password are invalid'})
+            raise serializers.ValidationError({'detail': 'Email or password are invalid'},)
         return user
 
 

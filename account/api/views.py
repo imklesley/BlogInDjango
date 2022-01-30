@@ -22,8 +22,8 @@ def api_register_user_view(request):
         if serializer.is_valid():
             account = serializer.save()
             data['detail'] = 'User Successfully Created'
-            data['token'] = Token.objects.get(user=account).key
             data['data'] = serializer.data
+            data['data']['token'] = Token.objects.get(user=account).key
             return Response(data, status=status.HTTP_201_CREATED)
         else:
             data['detail'] = 'User Not Created'
@@ -36,12 +36,13 @@ def api_register_user_view(request):
 @throttle_classes([LoginThrottleSec, LoginThrottleDay, ])
 def api_login_account_view(request):
     data = {}
-
     if request.method == 'POST':
+
         serializer = LoginAccountSerializer(data=request.data)
 
         # Caso o email ou a senha sejam nulos devolve a response 400
         if serializer.is_valid():
+
             # Caso os cam   pos estejam okay tenta autenticar
             user = serializer.get_user()
 
@@ -61,7 +62,8 @@ def api_login_account_view(request):
                     token = Token.objects.create(user=user)
 
                 # Passa o token e mensagem de sucesso
-                data['data'] = {'token': token.key,'user':AccountSerializer(user).data}
+                data['data'] = {'user': AccountSerializer(user).data}
+                data['data']['user']['token'] = token.key
                 data['detail'] = 'User authenticated'
 
                 return Response(data, status.HTTP_200_OK)
@@ -73,7 +75,7 @@ def api_login_account_view(request):
             # Caso os dados sejam inválidos retorna a response com mensagem de erro e a lista de erros de cada field
             data['errors'] = serializer.errors
             data['detail'] = 'Email or password are invalid'
-            return Response(data, status.HTTP_400_BAD_REQUEST)
+            return Response(data, status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])

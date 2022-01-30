@@ -32,7 +32,7 @@ def api_detail_blog_view(request, slug):
         return Response(serializer.data)
 
 
-@api_view(['PUT'])
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 @throttle_classes([UserRateThrottle])
 def api_update_blog_view(request, slug):
@@ -46,14 +46,15 @@ def api_update_blog_view(request, slug):
 
     data = {}
 
-    if request.method == 'PUT':
-        serializer = BlogPostSerializer(blog_post, data=request.data)
+    if request.method == 'PATCH':
+        serializer = BlogPostSerializer(blog_post, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             data['detail'] = 'Post Successfully Updated'
             data['data'] = serializer.data
             return Response(data, status=status.HTTP_200_OK)
         else:
+            print(serializer.errors)
             data['detail'] = 'Post not Updated'
             data['erros'] = serializer.errors
             return Response(data, status=status.HTTP_404_NOT_FOUND)
@@ -107,6 +108,7 @@ def api_create_blog_view(request):
             data['data'] = serializer.data
             return Response(data, status=status.HTTP_201_CREATED)
         else:
+            print(serializer.errors)
             post.delete()
             data['detail'] = 'Post Not Created'
             data['errors'] = serializer.errors
@@ -137,13 +139,14 @@ def api_list_view(request):
         paginator = PageNumberPagination()
 
         # Caso queira permitir o cliente decidir quantos post serão coletados por página
-        paginator.page_size = request.GET.get('page_size', 10)
+        paginator.page_size = request.GET.get('page_size', 5)
 
         query = request.GET.get('search')
 
         if query is not None:
             posts = posts.filter(
-                Q(title__icontains=query, body__icontains=query, author__username__icontains=query, _connector='or')
+                Q(title__icontains=query, body__icontains=query, author__username__icontains=query,
+                  tag__icontains=query, _connector='or')
             ).distinct()
 
         result_page = paginator.paginate_queryset(posts, request)

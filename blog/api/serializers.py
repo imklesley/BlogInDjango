@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from account.models import Account
-from blog.models import BlogPost
+from blog.models import BlogPost, upload_location
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'body', 'image', 'author', 'date_published']
+        fields = ['slug', 'title', 'body', 'image', 'tag', 'author', 'date_published']
 
     # Forma 1 de pegar dados por uma relação no caso account e blogpost
     def get_author_username(self, blog_post: BlogPost):

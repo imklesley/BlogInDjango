@@ -49,10 +49,8 @@ def edit_blog_view(request, slug):
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
 
-
     if not blog_post.author == user:
         return HttpResponse('<p>Somente o dono da postagem pode realizar edições!!</p>')
-
 
     if request.POST:
         form = UpdateBlogPostForm(request.POST or None, request.FILES or None, instance=blog_post)
@@ -77,11 +75,10 @@ def edit_blog_view(request, slug):
     return render(request, 'blog/edit_blog.html', context)
 
 
-
 def get_blog_queryset(query=None):
-    #Lista que vai receber os posts únicos encontrados
+    # Lista que vai receber os posts únicos encontrados
     queryset = []
-    #separa as palavras da frase para buscar cada uma separada
+    # separa as palavras da frase para buscar cada uma separada
     queries = query.split('  ')
 
     for q in queries:
@@ -89,9 +86,10 @@ def get_blog_queryset(query=None):
         posts = BlogPost.objects.filter(
             Q(title__icontains=q),
             Q(body__icontains=q),
+            Q(tag__icontains=q),
         ).distinct()
-        #adiciona os posts encontrados em queryset
+        # adiciona os posts encontrados em queryset
         for post in posts:
             queryset.append(post)
-    #Remove-se os posts repetidos usando o set, transforma em lista e retorna
+    # Remove-se os posts repetidos usando o set, transforma em lista e retorna
     return list(set(queryset))

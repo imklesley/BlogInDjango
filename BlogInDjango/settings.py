@@ -71,7 +71,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 1,
 
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
@@ -79,10 +79,10 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/hour',
-        'user': '100/hour',
+        'anon': '10000/hour',
+        'user': '10000/hour',
 
-        'login': '10/day',
+        'login': '20/hour',
         'login_sec': '1/second',
 
     }

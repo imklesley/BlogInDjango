@@ -12,16 +12,20 @@ def upload_location(instance, filename, *args, **kwargs):
     author_id = instance.author.id
     title = instance.title
     filename = filename
-    timestamp = datetime.now().timestamp()
-    file_path = f'blog/{author_id}/{title}-{timestamp}-{filename}'
+    now = datetime.now()
+    file_path = f'blog/{author_id}/{title}-{now.microsecond}-{filename}'
     return file_path
 
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
-    body = models.CharField(max_length=5000, null=False, blank=False)
+    body = models.CharField(max_length=30000, null=False, blank=False)
     # para usar essa função é preciso já ter instalado a dependência Pillow
     image = models.ImageField(upload_to=upload_location, null=False, blank=False)
+
+    tag = models.CharField(max_length=100, null=False, blank=False)
+
+
 
     date_published = models.DateTimeField(auto_now_add=True, verbose_name='date published')
     # Toda vez que esse objeto for atualizado o Django altera o valor no bd
@@ -34,6 +38,9 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-date_published']
 
 
 # É preciso criar um método para realizar o delete da image/imagens colocadas no serve, referente à esse post
