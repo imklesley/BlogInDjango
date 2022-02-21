@@ -16,18 +16,18 @@ def registration_view(request):
         # Mostro o form criado em from account.forms import RegistrationForm e coloco o retorno em "form"
         form = RegistrationForm(request.POST)
         if form.is_valid():  # Verifica-se se todos os campos estão válidos
-            form.save()  # Caso estejam, salva-se o formulário
+            user = form.save()  # Caso estejam, salva-se o formulário
 
             # Pega-se os valores de cada campo do formulário
-            email = form.cleaned_data.get('email')
-            username = form.cleaned_data.get('username')
-            first_name = form.cleaned_data.get('first_name')
-            raw_password = form.cleaned_data.get('password1')
+            # email = form.cleaned_data.get('email')
+            # username = form.cleaned_data.get('username')
+            # first_name = form.cleaned_data.get('first_name')
+            # raw_password = form.cleaned_data.get('password1')
 
             # Realiza a criação do novo usuário no sistema
-            account = authenticate(email=email, username=username, first_name=first_name, password=raw_password)
+            # account = authenticate(email=email, username=username, first_name=first_name, password=raw_password)
             # Após o usuário estiver logado basta logar na conta, caso assim deseje
-            login(request=request, user=account)
+            login(request=request, user=user)
             # Após isso se retorna/redireciona para alguma página, no caso redirecionamos para 'home'
             return redirect('home')
         else:
