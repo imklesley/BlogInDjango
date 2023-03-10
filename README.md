@@ -56,8 +56,7 @@ Once the server is running you can access the API endpoints at http://localhost:
 ## API Endpoints
 
 ### Authentication
-Use this example of endpoint:
-`ADDRESS:PORT/api/account/ENDPOINT`
+Use this example of endpoint: `ADDRESS:PORT/api/account/ENDPOINT`
 
 **Register**
 
@@ -77,9 +76,7 @@ Use this example of endpoint:
 This endpoint allows a logged in user to update their account information.
 
 ### Posts
-Use this example of endpoint:
-
-`ADDRESS:PORT/api/blog/ENDPOINT`
+Use this example of endpoint: `ADDRESS:PORT/api/blog/ENDPOINT`
 
 This endpoint allows users to Create, Update, Read and Delete their posts.
 
